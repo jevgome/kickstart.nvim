@@ -8,6 +8,7 @@ return {
     'nvim-lua/plenary.nvim',
     'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
     'MunifTanjim/nui.nvim',
+    'folke/snacks.nvim',
   },
   lazy = false,
   keys = {
@@ -19,6 +20,14 @@ return {
         mappings = {
           ['\\'] = 'close_window',
         },
+      },
+    },
+    event_handlers = {
+      {
+        event = 'neo_tree_buffer_enter',
+        handler = function()
+          vim.opt_local.relativenumber = true
+        end,
       },
     },
   },
