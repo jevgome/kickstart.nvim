@@ -7,9 +7,7 @@ return {
     --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
     --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
     --   -- refer to `:h file-pattern` for more examples
-    'BufReadPre '
-      .. vim.fn.expand '~'
-      .. '/Github/Obsidian-Vault/*.md',
+    'BufReadPre ' .. vim.fn.expand '~' .. '/Github/Obsidian-Vault/*.md',
     'BufNewFile ' .. vim.fn.expand '~' .. '/Github/Obsidian-Vault/*.md',
   },
 
@@ -34,7 +32,7 @@ return {
     },
 
     callbacks = {
-      enter_note = function(_, note)
+      enter_note = function(note)
         vim.keymap.set('n', '<C-b>', '<cmd>Obsidian backlinks<cr>', {
           buffer = note.bufnr,
           desc = 'Open backlinks',
@@ -89,13 +87,13 @@ return {
     -- Or you can set it to a function that takes a table of options and returns a string, like this:
     -- Optional, customize how markdown links are formatted.
 
-    wiki_link_func = function(opts)
-      return require('obsidian.util').wiki_link_id_prefix(opts)
-    end,
-
-    markdown_link_func = function(opts)
-      return require('obsidian.util').markdown_link(opts)
-    end,
+    -- wiki_link_func = function(opts)
+    --   return require('obsidian.util').wiki_link_id_prefix(opts)
+    -- end,
+    --
+    -- markdown_link_func = function(opts)
+    --   return require('obsidian.util').markdown_link(opts)
+    -- end,
 
     -- Optional, configure key mappings. These are the defaults. If you don't want to set any keymappings this
     -- way then set 'mappings = {}'.
