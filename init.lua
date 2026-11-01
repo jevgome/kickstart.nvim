@@ -1019,5 +1019,19 @@ vim.keymap.set('n', '<C-C>', '<Cmd>%y+<CR>', { noremap = true, silent = true })
 -- vim.keymap.set('n', 'sn', ':wa<CR>', { noremap = true, silent = true })
 
 vim.cmd.colorscheme 'tokyonight-night'
+
+-- Define a user command to open the current Markdown file in Zathura
+vim.api.nvim_create_user_command('ZathuraPreview', function()
+  local file = vim.fn.expand '%:p' -- Full path of current file
+  local output = '/tmp/' .. vim.fn.expand '%:t:r' .. '.pdf' -- Target temp PDF path
+
+  -- Compile markdown to PDF using pandoc and run Zathura asynchronously in the background
+  local cmd = string.format("pandoc '%s' -o '%s' && zathura '%s' &", file, output, output)
+  vim.fn.system(cmd)
+end, {})
+
+-- Map it to a convenient shortcut like <leader>zp (Zathura Preview)
+vim.keymap.set('n', '<leader>zp', ':ZathuraPreview<CR>', { silent = true, desc = 'Preview Markdown in Zathura' })
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
